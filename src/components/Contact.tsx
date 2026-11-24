@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, FormEvent } from "react";
+import { useState, useRef, FormEvent } from "react";
+import { usePlayWhenVisible } from "../usePlayWhenVisible";
 import { useTheme } from "./ThemeContext";
 import { useLanguage } from "./LanguageContext";
 import { Phone, Mail, Clock, MapPin, MessageCircle, Send, Sparkles } from "lucide-react";
@@ -11,6 +12,8 @@ import { motion } from "motion/react";
 import { CONTACT } from "../config";
 
 export function Contact() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  usePlayWhenVisible(videoRef);
   const { theme } = useTheme();
   const { language, t } = useLanguage();
   const [name, setName] = useState("");
@@ -58,14 +61,15 @@ Details: ${message}`;
       {/* Background Video with 40% Opacity */}
       <div className="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none opacity-40">
         <video
-          autoPlay
+          ref={videoRef}
+          preload="metadata"
           loop
           muted
           playsInline
           poster={`${import.meta.env.BASE_URL}images/posters/contact.jpg`}
           className="w-full h-full object-cover"
         >
-          <source src="https://res.cloudinary.com/disqhusor/video/upload/v1782944091/Image_to_video_storefront_202607020112_ibpgbm.mp4" type="video/mp4" />
+          <source src="https://res.cloudinary.com/disqhusor/video/upload/w_1280,q_auto/v1782944091/Image_to_video_storefront_202607020112_ibpgbm.mp4" type="video/mp4" />
         </video>
         {/* Subtle dark overlay to ensure readability on both dark and light modes */}
         <div className={`absolute inset-0 ${isDark ? "bg-neutral-950/40" : "bg-white/20"}`} />

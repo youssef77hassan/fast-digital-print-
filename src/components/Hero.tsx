@@ -4,6 +4,7 @@
  */
 
 import { MouseEvent, useRef } from "react";
+import { usePlayWhenVisible } from "../usePlayWhenVisible";
 import { useTheme } from "./ThemeContext";
 import { useLanguage } from "./LanguageContext";
 import { ArrowUpRight, MessageCircle, Sparkles, Check } from "lucide-react";
@@ -14,6 +15,8 @@ export function Hero() {
   const { theme } = useTheme();
   const { language, t } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  usePlayWhenVisible(videoRef);
 
   const handleBrowseProducts = (e: MouseEvent) => {
     e.preventDefault();
@@ -63,6 +66,7 @@ export function Hero() {
           className="absolute inset-0 w-full h-full will-change-transform opacity-40"
         >
           <video
+            ref={videoRef}
             autoPlay
             muted
             loop
@@ -70,7 +74,7 @@ export function Hero() {
             poster={`${import.meta.env.BASE_URL}images/posters/hero.jpg`}
             className="w-full h-full object-cover"
           >
-            <source src="https://res.cloudinary.com/disqhusor/video/upload/v1782940631/Commercial_animation_of_printing__202606300017_gwr_video_mvp_cea84e.mp4" type="video/mp4" />
+            <source src="https://res.cloudinary.com/disqhusor/video/upload/w_1280,q_auto/v1782940631/Commercial_animation_of_printing__202606300017_gwr_video_mvp_cea84e.mp4" type="video/mp4" />
           </video>
         </motion.div>
         

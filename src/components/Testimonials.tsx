@@ -6,6 +6,8 @@
 import { useTheme } from "./ThemeContext";
 import { useLanguage } from "./LanguageContext";
 import { Testimonial } from "../types";
+import { useRef } from "react";
+import { usePlayWhenVisible } from "../usePlayWhenVisible";
 import { Quote } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -14,6 +16,8 @@ interface TestimonialsProps {
 }
 
 export function Testimonials({ testimonials }: TestimonialsProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  usePlayWhenVisible(videoRef);
   const { theme } = useTheme();
   const { t } = useLanguage();
 
@@ -24,14 +28,15 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
       {/* Background Video with 40% Opacity */}
       <div className="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none opacity-40">
         <video
-          autoPlay
+          ref={videoRef}
+          preload="metadata"
           loop
           muted
           playsInline
           poster={`${import.meta.env.BASE_URL}images/posters/testimonials.jpg`}
           className="w-full h-full object-cover"
         >
-          <source src="https://res.cloudinary.com/disqhusor/video/upload/v1782945489/0702_1__gwr_video_mvp_qcerut.mp4" type="video/mp4" />
+          <source src="https://res.cloudinary.com/disqhusor/video/upload/w_1280,q_auto/v1782945489/0702_1__gwr_video_mvp_qcerut.mp4" type="video/mp4" />
         </video>
         {/* Subtle dark overlay to ensure readability */}
         <div className={`absolute inset-0 ${isDark ? "bg-neutral-950/50" : "bg-white/30"}`} />

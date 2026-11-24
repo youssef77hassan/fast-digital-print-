@@ -4,6 +4,7 @@
  */
 
 import { useRef } from "react";
+import { usePlayWhenVisible } from "../usePlayWhenVisible";
 import { useTheme } from "./ThemeContext";
 import { useLanguage } from "./LanguageContext";
 import { Product } from "../types";
@@ -28,6 +29,8 @@ interface ProductLandingSectionProps {
 
 function ProductLandingSection({ bgUrl, videoUrl, posterUrl, title, subtitle, waLink }: ProductLandingSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  usePlayWhenVisible(videoRef);
   const { t } = useLanguage();
 
   // Track scroll position of this container relative to the viewport
@@ -53,9 +56,10 @@ function ProductLandingSection({ bgUrl, videoUrl, posterUrl, title, subtitle, wa
             className="absolute -inset-y-16 inset-x-0 w-full h-[calc(100%+128px)] will-change-transform"
           >
             <video
+              ref={videoRef}
               src={videoUrl}
               poster={posterUrl}
-              autoPlay
+              preload="metadata"
               loop
               muted
               playsInline
@@ -114,7 +118,7 @@ export function Products({ products, searchQuery }: ProductsProps) {
 
   const productSections = [
     {
-      videoUrl: "https://res.cloudinary.com/disqhusor/video/upload/v1782939792/Business_card_with_paint_splash_202607012353_gwr_video_mvp_ze1fz3.mp4",
+      videoUrl: "https://res.cloudinary.com/disqhusor/video/upload/w_1280,q_auto/v1782939792/Business_card_with_paint_splash_202607012353_gwr_video_mvp_ze1fz3.mp4",
       posterUrl: `${import.meta.env.BASE_URL}images/posters/products-1.jpg`,
       titleKey: "products_section_1_title" as const,
       subKey: "products_section_1_sub" as const,
@@ -127,14 +131,14 @@ export function Products({ products, searchQuery }: ProductsProps) {
       arabicTag: "العلب الفاخرة والتغليف المخصص",
     },
     {
-      videoUrl: "https://res.cloudinary.com/disqhusor/video/upload/v1782938426/Abstract_paint_splatters_swirl_b__202607012336_gwr_video_mvp_1_vahtff.mp4",
+      videoUrl: "https://res.cloudinary.com/disqhusor/video/upload/w_1280,q_auto/v1782938426/Abstract_paint_splatters_swirl_b__202607012336_gwr_video_mvp_1_vahtff.mp4",
       posterUrl: `${import.meta.env.BASE_URL}images/posters/products-2.jpg`,
       titleKey: "products_section_3_title" as const,
       subKey: "products_section_3_sub" as const,
       arabicTag: "المطبوعات الداخلية والخارجية واللوحات الكبيرة",
     },
     {
-      videoUrl: "https://res.cloudinary.com/disqhusor/video/upload/v1782942304/0702_gwr_video_mvp_dumf2l.mp4",
+      videoUrl: "https://res.cloudinary.com/disqhusor/video/upload/w_1280,q_auto/v1782942304/0702_gwr_video_mvp_dumf2l.mp4",
       posterUrl: `${import.meta.env.BASE_URL}images/posters/products-3.jpg`,
       titleKey: "products_section_4_title" as const,
       subKey: "products_section_4_sub" as const,
